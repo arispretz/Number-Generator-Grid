@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Generator Grid</title>
+  
+  <style>
+    body {
+    background-color: lightgray;
+    }
+  </style>
+</head>
+
+<body>
+    <h1>Number Generator Grid</h1>
+    <div class="wrapper"></div>
+
+    <script>
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0) return false;
+            for (let i = 3; i <= Math.sqrt(num); i += 2) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        const h1 = document.querySelector('h1');
+        h1.style.textAlign = 'center';
+        h1.style.color = 'green';
+        h1.style.fontFamily = 'verdana bold';
+
+        const wrapper = document.querySelector('.wrapper');
+        wrapper.style.textAlign = 'center';
+        wrapper.style.maxWidth = '500px';
+        wrapper.style.alignContent = 'center';
+        wrapper.style.justifyContent = 'center';
+        wrapper.style.paddingLeft = '220px';
+
+        const gridContainer = document.createElement('div');
+        gridContainer.style.display = 'grid';
+        gridContainer.style.gridTemplateColumns = 'repeat(5, 1fr)';
+        gridContainer.setAttribute('id', 'grid');
+        gridContainer.style.textAlign = 'center';
+        gridContainer.style.marginLeft = '45px';
+
+        const flexContainer = document.createElement('div');
+        flexContainer.style.display = 'flex';
+        flexContainer.style.flexDirection = 'column';
+        flexContainer.style.textAlign = 'center';
+        flexContainer.style.padding = '20px';
+        flexContainer.style.marginLeft = '180px';
+        wrapper.appendChild(flexContainer);
+
+        const consoleMessage = document.createElement('p');
+        flexContainer.appendChild(consoleMessage);
+
+        const inputButtonContainer = document.createElement('div');
+        inputButtonContainer.style.display = 'flex';
+        inputButtonContainer.style.alignItems = 'center';
+        flexContainer.appendChild(inputButtonContainer);
+
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.style.width = '360px';
+        input.style.height = '30px';
+        input.style.borderColor = 'coral';
+        input.style.paddingLeft = '140px';
+        input.style.fontSize = '16px';
+        input.style.textAlign = 'left';
+        inputButtonContainer.appendChild(input);
+
+        const button = document.createElement('button');
+        button.textContent = 'Generate Numbers';
+        button.style.backgroundColor = 'coral';
+        button.style.color = 'white';
+        button.style.width = '600px';
+        button.style.height = '50px';
+        button.style.borderColor = 'coral';
+        button.style.padding = '10px';
+        button.style.marginLeft = '20px';
+        button.style.marginBottom = '20px';
+        button.style.textDecoration = 'underline';
+        button.style.fontSize = '12px';
+        inputButtonContainer.appendChild(button);
+
+        button.addEventListener('click', function () {
+            const inputValue = parseInt(input.value);
+            if (isNaN(inputValue) || inputValue <= 0) {
+                consoleMessage.textContent = 'Input value must be a positive number.';
+                return;
+            }
+
+            consoleMessage.textContent = '';
+
+            gridContainer.innerHTML = '';
+
+            for (let i = 1; i <= inputValue; i++) {
+                const numberElement = document.createElement('span');
+                numberElement.textContent = i;
+                numberElement.style.width = '150px';
+                numberElement.style.height = '100px';
+                numberElement.style.margin = '2px';
+                numberElement.style.paddingTop = '30px';
+                numberElement.style.color = 'white';
+                numberElement.style.alignItems = 'center';
+                numberElement.style.fontSize = '50px';
+                numberElement.style.justifyContent = 'center';
+                if (i % 2 === 0) {
+                    numberElement.style.backgroundColor = 'green';
+                } else if (isPrime(i)) {
+                    numberElement.style.backgroundColor = 'red';
+                } else {
+                    numberElement.style.backgroundColor = 'blue';
+                }
+
+                gridContainer.appendChild(numberElement);
+            }
+
+            wrapper.appendChild(gridContainer);
+        });
+
+        input.addEventListener('click', function () {
+            consoleMessage.textContent = 'Enter a number value in the input field to generate a number.';
+        });
+
+        input.addEventListener('focus', function () {
+            consoleMessage.textContent = 'Enter a number value in the input field to generate a number.';
+        });
+
+        const footer = document.createElement('p');
+        footer.textContent = 'Created by Ariana Spretz';
+        footer.style.color = 'magenta';
+        footer.style.textAlign = 'center';
+        footer.style.fontWeight = 'bold';
+        document.body.appendChild(footer);
+
+    </script>
+
+</body>
+
+</html>
